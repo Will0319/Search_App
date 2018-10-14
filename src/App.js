@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Select, Input, Icon} from 'antd';
-// import './App.css';
+import { Row, Col, Select, Input, Icon,Card} from 'antd';
+import { CardList } from './Db';
 import './App.less';
 const Option = Select.Option;
 
@@ -42,6 +42,9 @@ class App extends Component {
     const { afterText, selectVal} = this.state;
     window.open(selectVal + afterText);
   }
+  cardClick=(url)=>{
+    window.open(url);
+  }
   render() {
     const { afterText, searchOptions} = this.state;
     const selectBefore = (
@@ -53,21 +56,26 @@ class App extends Component {
         }
       </Select>
     );
+    const gridStyle = {
+      width: '25%',
+      textAlign: 'center',
+      cursor: 'pointer'
+    };
     return (
       <Row className='App'>
           <Row className='App-content'>
               <Row>
-            <div id="wraper">
+              <div id="wraper">
     		<div id="stand1" className="stand"></div>
               <div id="stand2" className="stand"></div>
-              <div id="band">
-                <div id="wheel1" className="wheel"></div>
-                <div id="wheel2" className="wheel"></div>
-                <div id="wheel3" className="wheel"></div>
-                <div id="wheel4" className="wheel"></div>
-              </div>
+                <div id="band">
+                  <div id="wheel1" className="wheel"></div>
+                  <div id="wheel2" className="wheel"></div>
+                  <div id="wheel3" className="wheel"></div>
+                  <div id="wheel4" className="wheel"></div>
+                </div>
               <div id="package1" className="package"></div>
-    		<div id="mainFactory"></div>
+    	    	<div id="mainFactory"></div>
               <div id="door"></div>
               <div id="window1" className="window"></div>
               <div id="window2" className="window"></div>
@@ -95,7 +103,7 @@ class App extends Component {
                 <div id="leaves2" className="leaves"></div>
                 <div id="leaves3" className="leaves"></div>
               </div>
-            </div>
+       </div>
               </Row>
               <Row className='App-search'>
                   <Col span={14}>
@@ -107,22 +115,32 @@ class App extends Component {
                       onChange={(e)=>this.textChange(e)}
                     />
                   </Col>
-                  {/* <Col span={2}>
-                    <Select defaultValue="lucy" style={{width:'100%'}}>
-                      <Option value="jack">Jack</Option>
-                      <Option value="lucy">Lucy</Option>
-                      <Option value="disabled" disabled>Disabled</Option>
-                      <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
-                  </Col>
-                  <Col span={10}>
-                      <Input />
-                  </Col>
-                  <Col span={2}>
-                    <Button type="primary" style={{width:'100%'}}>搜索</Button>
-                  </Col> */}
               </Row>
+              <Row className='App-card'>
+                <Col span={14}>
+                  {
+                      CardList.map((item, index) => {
+                      return (
+                        <Card title={item.title} key={index} headStyle={{ background: item.titlecolor,color:'#fff'}} type="inner" style={{marginTop:20}}>
+                          {
+                            item.list.map((vitem,vindex)=>{
+                              return (<Card.Grid style={gridStyle} key={vindex} className='App-card-hover' onClick={()=>this.cardClick(vitem.url)}>{vitem.name}</Card.Grid>);
+                            })
+                          }
+                        </Card>
+                      )
+                    })
+                  }
+                </Col>
+              </Row>
+
           </Row>
+        <Row className='App-footer'>
+          <Col>
+            created by
+                  <a target="_blank" href="https://github.com/Will0319">@yangxuan </a>
+          </Col>
+        </Row>
       </Row>
     );
   }
