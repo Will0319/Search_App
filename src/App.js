@@ -113,6 +113,7 @@ class App extends Component {
                       addonAfter={<div onClick={()=>this.SearchBtn()} style={{ cursor: 'pointer' }}><Icon type="search" /> 搜索</div>} 
                       value={afterText} 
                       onChange={(e)=>this.textChange(e)}
+                      onPressEnter={()=>this.SearchBtn()}
                     />
                   </Col>
               </Row>
